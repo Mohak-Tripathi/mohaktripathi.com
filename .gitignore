@@ -2,3 +2,13 @@
 Thumbs.db
 *.swp
 *.swo
+
+# Planning docs (not part of the site)
+Instructions.md
+docs/
+
+# Design source (not part of the deployed site)
+claude-design/
+
+# Personal Claude Code local overrides (like .env.local — never commit)
+.claude/settings.local.json
