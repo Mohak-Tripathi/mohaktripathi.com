@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building a blog that lasts 100 years — Mohak Tripathi</title>
+  <meta name="description" content="Why I built this site with plain HTML and one CSS file, no framework, no build step, no dependencies — and why it will still render correctly in 2126.">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Building a blog that lasts 100 years">
+  <meta property="og:description" content="Why I built this site with plain HTML and one CSS file, no framework, no build step, no dependencies — and why it will still render correctly in 2126.">
+  <meta property="og:url" content="https://mohaktripathi.com/blog/building-a-blog-that-lasts-100-years/">
+  <meta property="og:image" content="https://mohaktripathi.com/assets/og-image.svg">
+  <meta property="article:published_time" content="2026-06-21">
+  <meta property="article:author" content="Mohak Tripathi">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building a blog that lasts 100 years">
+  <meta name="twitter:description" content="Why I built this site with plain HTML and one CSS file, no framework, no build step, no dependencies — and why it will still render correctly in 2126.">
+  <meta name="twitter:image" content="https://mohaktripathi.com/assets/og-image.svg">
+
+  <link rel="canonical" href="https://mohaktripathi.com/blog/building-a-blog-that-lasts-100-years/">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="Mohak Tripathi — RSS" href="/feed.xml">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page">
+    <header class="site-header">
+      <p class="site-title"><a href="/">Mohak Tripathi</a></p>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">About</a>
+        <a href="/blog/">Writing</a>
+        <a href="/principles/">Principles</a>
+        <a href="/feed.xml"><svg class="rss-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.18 15.64a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36zM4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44zm0 5.66A9.9 9.9 0 0 1 13.9 20h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>RSS</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="post-header">
+          <h1>Building a blog that lasts 100 years</h1>
+          <p class="post-meta">
+            <time datetime="2026-06-21">June 21, 2026</time>
+            <span class="dot">·</span>
+            <span>8 min read</span>
+          </p>
+        </header>
+
+        <p>
+          Every time I set up a blog, something breaks within two years. A build tool
+          becomes unmaintained. A CDN changes its free tier. A JavaScript framework pivots.
+          A font host starts injecting tracking. The posts survive, but the infrastructure
+          around them rots, and eventually you end up with a site that doesn't render — or
+          worse, requires a three-day yak shave before you can publish again.
+        </p>
+
+        <p>
+          I've been through this loop enough times that I decided to think differently about
+          it. What would a blog look like if I built it to last not two years, but a hundred?
+        </p>
+
+        <h2>The constraint is the design</h2>
+
+        <p>
+          A browser from 1994 can render plain HTML and CSS. The same browser from 1994
+          cannot render React, Tailwind, Next.js, or anything that depends on a build step,
+          a CDN, or a JavaScript runtime. This isn't nostalgia — it's an engineering
+          constraint with real consequences for durability.
+        </p>
+
+        <p>
+          The constraint collapses into a simple rule: plain HTML and one CSS file. No
+          framework. No build step. No JavaScript. No web fonts fetched from external
+          servers. No npm. No node_modules. No tracking scripts. Nothing that requires a
+          dependency to still be maintained in 2126.
+        </p>
+
+        <blockquote>
+          <p>
+            The best long-term bet in software is always the one with the fewest
+            moving parts. A static file served over HTTP has been the same bet since
+            1991, and it keeps paying.
+          </p>
+        </blockquote>
+
+        <p>
+          With modern CSS, system fonts, and a well-structured HTML document, you can build
+          something that looks better than most JavaScript-heavy sites while loading in under
+          100ms from a cold cache. The CSS for this entire site is under 400 lines. I can
+          read it top to bottom in five minutes and understand exactly what it does.
+        </p>
+
+        <h2>System fonts are underrated</h2>
+
+        <p>
+          The default reaction to "system fonts" is that you're stuck with something ugly.
+          This is wrong, and the misunderstanding reveals something about how the industry
+          has been trained to think about design.
+        </p>
+
+        <p>
+          System fonts are the fonts the operating system has spent years tuning for
+          readability on that specific screen. The font stack for this site's body text:
+        </p>
+
+        <pre><code>--serif: Charter, "Bitstream Charter", "Sitka Text",
+         Cambria, Georgia, "Times New Roman", serif;</code></pre>
+
+        <p>
+          Charter on macOS. Cambria on Windows. Georgia everywhere else. All excellent.
+          All tuned for long-form reading. All already on your device, loading in zero
+          milliseconds, with no FOUT, no flash, no flicker.
+        </p>
+
+        <p>
+          For UI elements and headings, <code>system-ui</code> is even more direct — it
+          literally resolves to whatever Apple, Microsoft, or Google decided their own
+          users should read system text in. San Francisco on macOS. Segoe UI on Windows.
+          Roboto on Android. They're all excellent choices made by teams who thought about
+          it much harder than I would.
+        </p>
+
+        <p>
+          The web font industry has done remarkable work conditioning developers to believe
+          that loading a font from a server is normal, necessary, and benign. It isn't.
+          It's a network dependency, a potential GDPR footnote, a render-blocking request,
+          and a single point of failure for the visual design of every page on your site.
+        </p>
+
+        <figure>
+          <div class="img-placeholder" role="img" aria-label="Comparison: a page loading with a web font (FOUT, network request, external dependency) versus the same page with system fonts (instant, no request, no dependency).">
+            <span>diagram — web font loading vs. system font rendering</span>
+          </div>
+          <figcaption>Web fonts introduce a network request, a flash of invisible text, and an external dependency. System fonts eliminate all three.</figcaption>
+        </figure>
+
+        <h2>Freeze the URLs now</h2>
+
+        <p>
+          Every URL I've ever shared and watched die looked fine at the time. Medium posts.
+          Old blog posts from platforms that pivoted or shut down. The content was fine;
+          the infrastructure that gave it an address wasn't.
+        </p>
+
+        <p>
+          URL structure is the one thing you can't undo later without breaking every link
+          that's been shared, bookmarked, indexed, or cited. So I set mine in concrete
+          before I wrote a single word:
+        </p>
+
+        <ul>
+          <li><code>/</code> — home and about</li>
+          <li><code>/blog/</code> — the writing index</li>
+          <li><code>/blog/&lt;slug&gt;/</code> — one directory per post</li>
+          <li><code>/principles/</code> — the living constitution</li>
+        </ul>
+
+        <p>
+          The <code>/blog/&lt;slug&gt;/</code> pattern uses a directory with an
+          <code>index.html</code> inside, not a flat <code>slug.html</code> file. This
+          means the URL has no file extension. It resolves correctly on Apache, Nginx,
+          GitHub Pages, Cloudflare Pages, and any future host you can imagine — because
+          all of them understand directory indexing, and none of that logic can change
+          without breaking the entire web.
+        </p>
+
+        <h2>One stylesheet, one prefix</h2>
+
+        <p>
+          Every page references <code>/style.css</code>. Not <code>../style.css</code>.
+          The absolute root path. This matters because relative paths are a function of
+          directory depth, which changes if you ever reorganize. An absolute path is a
+          function of the server root, which doesn't.
+        </p>
+
+        <p>
+          The same applies to every asset under <code>/assets/</code>. When this site
+          is served from <code>mohaktripathi.com</code>, <code>/style.css</code> resolves
+          to <code>mohaktripathi.com/style.css</code> regardless of which directory the
+          requesting page lives in.
+        </p>
+
+        <h2>What "durable" actually means</h2>
+
+        <p>
+          The web has been around for 35 years. In that time, plain HTML and CSS files
+          have never become unreadable. The <code>&lt;p&gt;</code> tag from 1993 still
+          works today. The CSS I write in 2026 will still render in 2091, because browsers
+          take backwards compatibility more seriously than almost any other piece of software
+          on earth.
+        </p>
+
+        <p>
+          JavaScript-heavy sites have a median lifespan of around two to four years before
+          something in the dependency chain becomes unmaintained, a service is discontinued,
+          or the framework's philosophy shifts enough that upgrading is effectively a rewrite.
+        </p>
+
+        <p>
+          I don't want to lose words to infrastructure. The whole point of writing is that
+          ideas outlive the moment. If the medium is fragile, the ideas are fragile too.
+        </p>
+
+        <h2>What publishing looks like in practice</h2>
+
+        <p>
+          This blog is a directory of HTML files, a stylesheet, and a handful of assets.
+          No package.json. No build command. No CI pipeline to maintain. To publish a new
+          post, I:
+        </p>
+
+        <ol>
+          <li>Create a new directory under <code>/blog/</code></li>
+          <li>Drop an <code>index.html</code> in it</li>
+          <li>Add a <code>&lt;li&gt;</code> to <code>/blog/index.html</code></li>
+          <li>Add an <code>&lt;item&gt;</code> to <code>feed.xml</code></li>
+          <li>Commit and push</li>
+        </ol>
+
+        <p>
+          It deploys in under 30 seconds on GitHub Pages with no build step — because there
+          is nothing to build. The template for any new post is a single HTML file with the
+          same header and footer. You can download it and use it yourself:
+        </p>
+
+        <p>
+          <a class="file-link" href="/assets/post-template.html" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            post-template.html
+          </a>
+        </p>
+
+        <h2>The aesthetic argument</h2>
+
+        <p>
+          I want to make one more point, because the purely technical case makes it sound
+          like this approach involves sacrifice. It doesn't.
+        </p>
+
+        <p>
+          A page with system fonts, a 680px reading column, generous whitespace, clear
+          heading hierarchy, and one accent color is a better reading experience than
+          almost anything I've seen built with a component library. The best-read personal
+          sites on the internet — Daring Fireball, Paul Graham's essays, Derek Sivers —
+          are essentially this. They look timeless because they have no framework's
+          fingerprints on them.
+        </p>
+
+        <p>
+          The visual design of this site is also the argument the site is making. Clarity
+          over performance isn't just a principle I'm writing about — it's the choice that
+          makes the stylesheet 400 lines instead of 40,000. The medium is the message,
+          and this medium is plain.
+        </p>
+
+        <h2>A brief note on this site's own build</h2>
+
+        <p>
+          If you're curious what this looks like in practice: I gave a short talk last year
+          on why I structure personal projects this way. Skip to the 4-minute mark for the
+          live demo of the "no framework" approach.
+        </p>
+
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/placeholder"
+            title="Why plain HTML still wins — a live demo"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+
+        <p>
+          I also recorded a short audio version of this post for anyone who prefers to
+          listen while commuting. It's about twelve minutes at normal speed.
+        </p>
+
+        <audio controls preload="none">
+          <source src="/assets/building-a-blog-that-lasts-100-years.mp3" type="audio/mpeg">
+          <p>Your browser doesn't support the audio element. <a href="/assets/building-a-blog-that-lasts-100-years.mp3">Download the audio</a> instead.</p>
+        </audio>
+
+        <h2>One hundred years</h2>
+
+        <p>
+          A blog that lasts a hundred years is just a blog with no external dependencies
+          and frozen URLs, served from a host that exists. That's it. None of the tech is
+          exotic. The hard part is the restraint: resisting the framework, resisting the
+          feature, resisting the clever build step that solves a problem you don't have.
+        </p>
+
+        <p>
+          I wrote this down because I want to be able to find it in 2126. And I think I will.
+        </p>
+
+        <a class="backlink" href="/blog/">← All writing</a>
+
+        <aside class="sponsor" aria-label="Sponsor">
+          <span class="label">Sponsored</span>
+          <span class="logo" role="img" aria-label="Sponsor logo placeholder"></span>
+          <span class="blurb">Interested in sponsoring? <a href="mailto:hello@mohaktripathi.com">Get in touch →</a></span>
+        </aside>
+
+        <section class="subscribe" aria-labelledby="sub-post">
+          <h3 id="sub-post">Get the next one by email</h3>
+          <p>One email when I publish. No cadence, no marketing, no list-sharing. Unsubscribe in one click.</p>
+          <form action="#" method="post">
+            <label for="email-post" class="skip-link">Email address</label>
+            <input id="email-post" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+            <button type="submit">Subscribe</button>
+          </form>
+          <p class="fineprint">Or follow along by <a href="/feed.xml">RSS</a>.</p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 Mohak Tripathi</span>
+      <span>Plain HTML &amp; CSS · no tracking · <a href="/feed.xml">RSS</a></span>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Principles — Mohak Tripathi</title>
+  <meta name="description" content="The principles I use to make decisions about writing, software, and work. A living document — updated when something changes, with a public changelog.">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Principles — Mohak Tripathi">
+  <meta property="og:description" content="The principles I use to make decisions about writing, software, and work. A living document with a public changelog.">
+  <meta property="og:url" content="https://mohaktripathi.com/principles/">
+  <meta property="og:image" content="https://mohaktripathi.com/assets/og-image.svg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Principles — Mohak Tripathi">
+  <meta name="twitter:description" content="The principles I use to make decisions about writing, software, and work. A living document with a public changelog.">
+  <meta name="twitter:image" content="https://mohaktripathi.com/assets/og-image.svg">
+
+  <link rel="canonical" href="https://mohaktripathi.com/principles/">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="Mohak Tripathi — RSS" href="/feed.xml">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page">
+    <header class="site-header">
+      <p class="site-title"><a href="/">Mohak Tripathi</a></p>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">About</a>
+        <a href="/blog/">Writing</a>
+        <a href="/principles/" aria-current="page">Principles</a>
+        <a href="/feed.xml"><svg class="rss-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.18 15.64a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36zM4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44zm0 5.66A9.9 9.9 0 0 1 13.9 20h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>RSS</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <h1>Principles</h1>
+
+      <p class="doc-note">
+        This is a living document. I add, remove, and revise principles as I learn more.
+        The changelog at the bottom records every meaningful change, with a date and reason.
+        "Core" means I'm confident enough to treat it as fixed. "Candidate" means it's
+        earned its place provisionally — I act on it, but I'm still watching it.
+      </p>
+
+      <hr>
+
+      <h2>Core principles</h2>
+
+      <div class="principle">
+        <h2><span class="num">01.</span> Clarity <span class="tag core">core</span></h2>
+        <p>
+          Clarity is the master principle. Clarity in thinking — understanding something
+          well enough to explain it simply. Clarity in writing — saying what you mean
+          without extra ceremony. Clarity in code — naming, structure, and interfaces that
+          communicate intent so completely that comments become redundant.
+        </p>
+        <p>
+          "Clever" is the enemy of clarity. So is premature abstraction, overloaded
+          vocabulary, and the kind of prose that mistakes density for depth. When I notice
+          that something I wrote is hard to understand, that's a signal that I don't
+          fully understand it yet — not that the reader needs to try harder.
+        </p>
+        <p>
+          This applies to the site itself. One column. One CSS file. One accent color.
+          The design is clear because it has almost nothing in it. What remains is the writing.
+        </p>
+      </div>
+
+      <hr>
+
+      <h2>Candidate principles</h2>
+
+      <p>
+        These have earned their place through repeated application, but I haven't held them
+        long enough to be certain they're universally right. I act on them. I'm still watching.
+      </p>
+
+      <div class="principle">
+        <h2><span class="num">02.</span> Durability <span class="tag candidate">candidate</span></h2>
+        <p>
+          Prefer things that last over things that are clever. In software: plain files
+          over fancy frameworks, frozen URLs over convenient redirects, boring technology
+          over the newest shiny thing. In writing: ideas that will still be true in a
+          decade over observations about last week's news cycle.
+        </p>
+        <p>
+          Durability is not conservatism. It's the discipline of asking "what is the useful
+          life of this decision?" before making it, and choosing accordingly. A decision
+          with a 10-year useful life is worth more than ten decisions with a 1-year life —
+          even if the short-lived ones are individually more interesting.
+        </p>
+      </div>
+
+      <div class="principle">
+        <h2><span class="num">03.</span> Simplicity <span class="tag candidate">candidate</span></h2>
+        <p>
+          Fewer moving parts is a feature, not a tradeoff. Complexity is usually
+          accumulated accidentally — one reasonable decision at a time — and rarely noticed
+          until you're staring at a failing build at 11pm and can't remember why you added
+          the thing that's now on fire.
+        </p>
+        <p>
+          The cost of complexity is invisible while you're adding it. The cost becomes
+          visible when you're maintaining it, debugging it, or trying to hand it to someone
+          else. I try to evaluate decisions as their future maintainer, not their current builder.
+        </p>
+        <p>
+          The practical test: if you removed it and nothing broke for a month, you didn't
+          need it. If removing it would cause a cascade, you should understand why before
+          you leave it in place.
+        </p>
+      </div>
+
+      <div class="principle">
+        <h2><span class="num">04.</span> Honesty <span class="tag candidate">candidate</span></h2>
+        <p>
+          Write about what actually happened, not what you wish had happened. This sounds
+          obvious until you sit down to write about a decision that turned out badly, and
+          feel the pull to frame it as a learning experience you'd planned all along.
+        </p>
+        <p>
+          The same applies to code. A comment that says "this is a hack" is better than
+          one that implies the hack is intentional design. A commit message that says
+          "revert — this broke production" is more useful than one that says "adjust timing."
+          Honesty in small things keeps you calibrated for the big ones.
+        </p>
+      </div>
+
+      <div class="principle">
+        <h2><span class="num">05.</span> Compounding <span class="tag candidate">candidate</span></h2>
+        <p>
+          Prefer investments whose value grows over time. Writing compounds: each post
+          makes the next one easier and creates a record that gets more useful the longer
+          it exists. Systems that log their own decisions compound. Skills that cross
+          domains compound. Time spent understanding fundamentals compounds.
+        </p>
+        <p>
+          The opposite also holds. Technical debt doesn't compound in your favor.
+          Dependencies you don't understand don't compound. Moving fast without writing
+          anything down doesn't compound. I try to notice which category a given investment
+          falls into before I make it.
+        </p>
+      </div>
+
+      <hr>
+
+      <h2>Changelog</h2>
+
+      <ul class="changelog">
+        <li><b>2026-06-21</b> — Published v1. Five principles drafted: Clarity promoted to core; Durability, Simplicity, Honesty, and Compounding admitted as candidates.</li>
+      </ul>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 Mohak Tripathi</span>
+      <span>Plain HTML &amp; CSS · no tracking · <a href="/feed.xml">RSS</a></span>
+    </footer>
+  </div>
+</body>
+</html>

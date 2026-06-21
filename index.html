@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mohak Tripathi</title>
+  <meta name="description" content="Mohak Tripathi — backend engineer and solo founder. Writing about multi-tenant systems, databases, and building a product in public.">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mohak Tripathi">
+  <meta property="og:description" content="Backend engineer and solo founder. Writing about multi-tenant systems, databases, and building a product in public.">
+  <meta property="og:url" content="https://mohaktripathi.com/">
+  <meta property="og:image" content="https://mohaktripathi.com/assets/og-image.svg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mohak Tripathi">
+  <meta name="twitter:description" content="Backend engineer and solo founder. Writing about multi-tenant systems, databases, and building a product in public.">
+  <meta name="twitter:image" content="https://mohaktripathi.com/assets/og-image.svg">
+
+  <link rel="canonical" href="https://mohaktripathi.com/">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="Mohak Tripathi — RSS" href="/feed.xml">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page">
+    <header class="site-header">
+      <p class="site-title"><a href="/">Mohak Tripathi</a></p>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/" aria-current="page">About</a>
+        <a href="/blog/">Writing</a>
+        <a href="/principles/">Principles</a>
+        <a href="/feed.xml"><svg class="rss-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.18 15.64a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36zM4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44zm0 5.66A9.9 9.9 0 0 1 13.9 20h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>RSS</a>
+      </nav>
+    </header>
+
+    <main id="main" class="intro">
+      <h1>I build backend systems, and write about what they teach me.</h1>
+      <p class="lede">
+        I'm Mohak Tripathi — a backend-heavy engineer and the sole engineer building a
+        multi-tenant B2B product from scratch, shipped to web, iOS, and Android.
+      </p>
+
+      <p>
+        Most days I'm somewhere in the unglamorous middle of the stack: multi-tenant
+        data models, GraphQL, database internals, observability, and the work of folding
+        AI into a real product without it becoming a liability. I'm an engineer-founder,
+        which mostly means I own every decision and live with every one of them.
+      </p>
+
+      <p>
+        This site is the long version of those decisions. Not tutorials reheated from the
+        docs — the trade-offs I actually weighed, the things that broke in production, and
+        the judgment that isn't already sitting in a search result. I write it down because
+        the act of explaining is how I find out whether I really understood, and because a
+        year from now I'll want to know what past me was thinking.
+      </p>
+
+      <p>
+        It's also, deliberately, a small and durable thing. Plain HTML and one stylesheet,
+        no framework, no build step, no tracking. It should load instantly, read well on
+        any screen, and still work in fifty years — the same standard I hold the writing to.
+        If you want to know the rules I'm building it under, they're on the
+        <a href="/principles/">principles</a> page.
+      </p>
+
+      <h2>What I write about</h2>
+      <ul>
+        <li>Multi-tenant architecture — isolation, data models, and the failure modes that keep me up at night.</li>
+        <li>Databases and storage — Postgres in anger, indexing, durability, and migrations that don't lose data.</li>
+        <li>Operating a product solo — observability, on-call-of-one, and shipping to three platforms without a team.</li>
+        <li>AI in real software — where it earns its place in a product, and where it quietly doesn't.</li>
+      </ul>
+
+      <h2>Building in public</h2>
+      <p>
+        I work in the open as much as I can. The product itself is closed-source for now,
+        but the pieces I can share — experiments, tools, and the occasional extracted
+        library — live on GitHub, and the thinking behind them ends up here.
+      </p>
+      <ul>
+        <li><a href="https://github.com/Mohak-Tripathi">GitHub</a> — code, experiments, and works in progress</li>
+        <li>The product — the multi-tenant B2B app I'm building <small>(link coming soon)</small></li>
+        <li>Changelog / notes — what shipped and what I learned <small>(coming soon)</small></li>
+      </ul>
+
+      <h2>Recent writing</h2>
+      <ul class="post-list">
+        <li>
+          <a href="/blog/building-a-blog-that-lasts-100-years/">Building a blog that lasts 100 years</a>
+          <time datetime="2026-06-21">Jun 21, 2026</time>
+        </li>
+      </ul>
+      <p><a href="/blog/">All writing →</a></p>
+
+      <section class="subscribe" aria-labelledby="sub-home">
+        <h2 id="sub-home">Get new posts by email</h2>
+        <p>One email when I publish something. No newsletter cadence, no marketing, no list-sharing. Unsubscribe in one click.</p>
+        <form action="#" method="post">
+          <label for="email-home" class="skip-link">Email address</label>
+          <input id="email-home" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <p class="fineprint">Or follow along by <a href="/feed.xml">RSS</a>.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 Mohak Tripathi</span>
+      <span>Plain HTML &amp; CSS · no tracking · <a href="/feed.xml">RSS</a></span>
+    </footer>
+  </div>
+</body>
+</html>
