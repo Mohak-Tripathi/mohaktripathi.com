@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Building a blog that lasts 100 years — Mohak Tripathi</title>
-  <meta name="description" content="Why I built this site with plain HTML and one CSS file, no framework, no build step, no dependencies — and why it will still render correctly in 2126.">
+  <meta name="description" content="I spent two days building this site to outlive every tool I built it with. Here is every decision, every tradeoff, and every mistake — so you can build yours in less.">
   <meta name="color-scheme" content="light dark">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Building a blog that lasts 100 years">
-  <meta property="og:description" content="Why I built this site with plain HTML and one CSS file, no framework, no build step, no dependencies — and why it will still render correctly in 2126.">
+  <meta property="og:description" content="Every decision, every tradeoff, and every mistake from building a blog with no dependencies and frozen URLs — written so you can build yours.">
   <meta property="og:url" content="https://mohaktripathi.com/blog/building-a-blog-that-lasts-100-years/">
   <meta property="og:image" content="https://mohaktripathi.com/assets/og-image.svg">
   <meta property="article:published_time" content="2026-06-21">
@@ -19,7 +19,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Building a blog that lasts 100 years">
-  <meta name="twitter:description" content="Why I built this site with plain HTML and one CSS file, no framework, no build step, no dependencies — and why it will still render correctly in 2126.">
+  <meta name="twitter:description" content="Every decision, every tradeoff, and every mistake from building a blog with no dependencies and frozen URLs — written so you can build yours.">
   <meta name="twitter:image" content="https://mohaktripathi.com/assets/og-image.svg">
 
   <link rel="canonical" href="https://mohaktripathi.com/blog/building-a-blog-that-lasts-100-years/">
@@ -47,264 +47,389 @@
           <p class="post-meta">
             <time datetime="2026-06-21">June 21, 2026</time>
             <span class="dot">·</span>
-            <span>8 min read</span>
+            <span>14 min read</span>
           </p>
         </header>
 
         <p>
-          Every time I set up a blog, something breaks within two years. A build tool
-          becomes unmaintained. A CDN changes its free tier. A JavaScript framework pivots.
-          A font host starts injecting tracking. The posts survive, but the infrastructure
-          around them rots, and eventually you end up with a site that doesn't render — or
-          worse, requires a three-day yak shave before you can publish again.
+          I spent two days building this blog. Not because a blog is hard to build — you
+          can put one online in an hour — but because I decided to build one that would
+          still work in a hundred years. That single constraint changed every decision I
+          made, and it turned a one-hour job into a two-day one.
         </p>
 
         <p>
-          I've been through this loop enough times that I decided to think differently about
-          it. What would a blog look like if I built it to last not two years, but a hundred?
+          This post is the whole map. If you're about to start a blog — maybe as the first
+          step toward building an audience, or a body of work, or just a place that's yours —
+          I want you to finish this and understand not only <em>what</em> to do, but <em>why</em>,
+          what I gave up to do it, and which small, undocumented mistakes cost me hours so
+          they don't cost you any. I'll be honest about the parts I got wrong, because those
+          are the useful parts.
         </p>
 
-        <h2>The constraint is the design</h2>
-
-        <p>
-          A browser from 1994 can render plain HTML and CSS. The same browser from 1994
-          cannot render React, Tailwind, Next.js, or anything that depends on a build step,
-          a CDN, or a JavaScript runtime. This isn't nostalgia — it's an engineering
-          constraint with real consequences for durability.
-        </p>
+        <h2>Why I didn't just use a normal tool</h2>
 
         <p>
-          The constraint collapses into a simple rule: plain HTML and one CSS file. No
-          framework. No build step. No JavaScript. No web fonts fetched from external
-          servers. No npm. No node_modules. No tracking scripts. Nothing that requires a
-          dependency to still be maintained in 2126.
+          Every time I've set up a blog before, it has quietly broken within a couple of
+          years. The pattern is always the same. A build tool stops being maintained. A
+          framework releases a new major version and "upgrading" turns into a rewrite. A
+          font host changes its terms or starts injecting tracking. A free hosting tier
+          disappears. The words I wrote are still fine — but the machinery around them has
+          rotted, and one day I go to publish a new post and discover I first need three
+          days of repairs.
         </p>
+
+        <p>
+          So I asked a different question. Not "what's the easiest way to start a blog,"
+          but "what would a blog look like if I built it to survive the tools I built it
+          with?" Everything below is the answer.
+        </p>
+
+        <h2>The one rule everything else comes from</h2>
 
         <blockquote>
-          <p>
-            The best long-term bet in software is always the one with the fewest
-            moving parts. A static file served over HTTP has been the same bet since
-            1991, and it keeps paying.
-          </p>
+          <p>Own the permanent things. Rent the swappable ones. Never add a dependency you can't live without.</p>
         </blockquote>
 
         <p>
-          With modern CSS, system fonts, and a well-structured HTML document, you can build
-          something that looks better than most JavaScript-heavy sites while loading in under
-          100ms from a cold cache. The CSS for this entire site is under 400 lines. I can
-          read it top to bottom in five minutes and understand exactly what it does.
-        </p>
-
-        <h2>System fonts are underrated</h2>
-
-        <p>
-          The default reaction to "system fonts" is that you're stuck with something ugly.
-          This is wrong, and the misunderstanding reveals something about how the industry
-          has been trained to think about design.
+          That's the whole philosophy. The trick is knowing which things are which.
         </p>
 
         <p>
-          System fonts are the fonts the operating system has spent years tuning for
-          readability on that specific screen. The font stack for this site's body text:
+          You <strong>own</strong> three things: your <em>domain</em> (your address on the
+          internet), your <em>content</em> (the actual files), and your <em>email list</em>
+          (the people who chose to hear from you). You <strong>rent</strong> everything else:
+          the company that hosts your files, the tool that sends your emails, the platforms
+          you share on. The rule is simply: never let anything in the "rent" column hold
+          something from the "own" column hostage. As long as that's true, any rented piece
+          can die or misbehave and you lose nothing permanent — you just swap it out.
         </p>
 
-        <pre><code>--serif: Charter, "Bitstream Charter", "Sitka Text",
-         Cambria, Georgia, "Times New Roman", serif;</code></pre>
+        <h2>The mental model, before touching anything</h2>
 
         <p>
-          Charter on macOS. Cambria on Windows. Georgia everywhere else. All excellent.
-          All tuned for long-form reading. All already on your device, loading in zero
-          milliseconds, with no FOUT, no flash, no flicker.
-        </p>
-
-        <p>
-          For UI elements and headings, <code>system-ui</code> is even more direct — it
-          literally resolves to whatever Apple, Microsoft, or Google decided their own
-          users should read system text in. San Francisco on macOS. Segoe UI on Windows.
-          Roboto on Android. They're all excellent choices made by teams who thought about
-          it much harder than I would.
+          It helped me to see the whole system as four layers before I built any of it.
         </p>
 
         <p>
-          The web font industry has done remarkable work conditioning developers to believe
-          that loading a font from a server is normal, necessary, and benign. It isn't.
-          It's a network dependency, a potential GDPR footnote, a render-blocking request,
-          and a single point of failure for the visual design of every page on your site.
-        </p>
-
-        <figure>
-          <div class="img-placeholder" role="img" aria-label="Comparison: a page loading with a web font (FOUT, network request, external dependency) versus the same page with system fonts (instant, no request, no dependency).">
-            <span>diagram — web font loading vs. system font rendering</span>
-          </div>
-          <figcaption>Web fonts introduce a network request, a flash of invisible text, and an external dependency. System fonts eliminate all three.</figcaption>
-        </figure>
-
-        <h2>Freeze the URLs now</h2>
-
-        <p>
-          Every URL I've ever shared and watched die looked fine at the time. Medium posts.
-          Old blog posts from platforms that pivoted or shut down. The content was fine;
-          the infrastructure that gave it an address wasn't.
+          <strong>Creation</strong> is the blog itself — your files, your permanent archive.
+          <strong>Distribution</strong> is how people find it, and it has three channels worth
+          naming. <em>RSS</em> is a single file on your site that lets anyone subscribe to you
+          in a reader app of their choice, with no platform sitting in the middle. A
+          <em>newsletter</em> is a list of emails you control, so you can reach people directly.
+          <em>Social</em> is reach you borrow from someone else's platform. <strong>Consumption</strong>
+          is where people actually read — a reader app, an inbox, a feed.
+          <strong>Monetization</strong>, if it ever comes, is the last layer and an optional one.
         </p>
 
         <p>
-          URL structure is the one thing you can't undo later without breaking every link
-          that's been shared, bookmarked, indexed, or cited. So I set mine in concrete
-          before I wrote a single word:
+          Two distinctions inside that are worth holding onto. The first is <em>push versus
+          pull</em>: RSS is pull (the reader checks your feed when <em>they</em> want), while a
+          newsletter is push (you arrive in their inbox when <em>you</em> publish). The second is
+          <em>ownership</em>: with social and RSS you get reach but no way to contact anyone;
+          with an email list you can export, you own the relationship. You build an audience
+          with social, you <em>keep</em> it with email, and the blog is the home both point back to.
+        </p>
+
+        <h2>The foundation: a domain you actually own</h2>
+
+        <p>
+          A free host gives you an address like <code>yourname.github.io</code>. That address
+          belongs to the host, not to you. The moment you ever move — and over a hundred years
+          you will move — that address breaks and takes all your links, bookmarks, and search
+          ranking with it. A domain you own is the one address that survives every move. It's
+          the most important purchase in the whole project.
+        </p>
+
+        <p>
+          I bought <code>mohaktripathi.com</code> — my own name. I was tempted by a
+          trendier ending like <code>.ai</code>, because it sounds cool right now. I talked
+          myself out of it: "right now" is the problem. Trends date, that ending costs much
+          more to renew, and it would chain my whole identity to one topic. A plain
+          <code>.com</code> with my name on it will never feel dated, because a name doesn't
+          go out of style — and any "coolness" is supposed to come from the writing, not the
+          web address.
+        </p>
+
+        <p>
+          Two things matter more than which registrar you pick. First, turn on
+          <strong>auto-renew</strong> immediately, because a domain you forget to renew is the
+          one and only thing that can truly end a hundred-year plan. Second — and this is a
+          tiny, real lesson — <strong>check your cart before paying</strong>. My discount code
+          didn't apply automatically; the price only dropped once I entered it by hand and
+          watched the total change. Registrars try to bundle in hosting and email you
+          don't need. Buy the domain. Decline the rest.
+        </p>
+
+        <h2>The site: plain HTML and one CSS file</h2>
+
+        <p>
+          Here is the core durability bet, stated plainly. A web browser from the 1990s can
+          still render a plain HTML page written today. That same old browser cannot run a
+          modern JavaScript framework, a build step, or anything that depends on a server
+          staying alive. The <code>&lt;p&gt;</code> tag has worked for thirty years and will
+          keep working, because browsers protect old pages more carefully than almost any
+          other software protects anything.
+        </p>
+
+        <p>
+          So the rule for the site is: plain HTML and one CSS file. No framework. No build
+          step. No <em>build step</em> means there is no separate "compile" command between
+          your files and the live site — what you write is literally what gets served. No
+          packages to update, no external fonts fetched from someone else's server, nothing
+          that needs to still be maintained in 2126.
+        </p>
+
+        <p>
+          Two choices inside that surprised me with how much they mattered. The first is
+          <strong>system fonts</strong> — the fonts already installed on the reader's device.
+          The usual fear is that they look cheap. They don't. They are fonts that Apple,
+          Microsoft, and Google each spent years tuning for their own screens, and they load
+          in zero time because they're already there. Using them means no external request,
+          no flicker while a font downloads, and nothing to break. The second is
+          <strong>absolute paths</strong>: every page links to <code>/style.css</code>, with a
+          leading slash, never <code>../style.css</code>. The leading slash means "start from
+          the root of the site," so the link works no matter how deep the page is buried. A
+          relative path depends on where the page sits, which breaks the moment you reorganize.
+        </p>
+
+        <p>
+          I won't pretend this is free. The honest tradeoff: I gave up the convenience of a
+          framework and the big ecosystem of ready-made components. What I got back is a site
+          with almost no moving parts — which means almost nothing that can break.
+        </p>
+
+        <h2>Freeze your URLs — the one decision you can't undo</h2>
+
+        <p>
+          You can change almost anything later: the design, the words, the host. The one
+          thing you can't change without breaking the world is your <strong>URL structure</strong>
+          — the shape of your web addresses. Once a post's address has been linked,
+          bookmarked, indexed by Google, or shared in someone's newsletter, changing it
+          turns all of those into dead links. There's a name for that decay:
+          <strong>link rot</strong>. The fix is to decide the structure once, before writing
+          anything, and never touch it.
+        </p>
+
+        <p>
+          Mine, frozen:
         </p>
 
         <ul>
           <li><code>/</code> — home and about</li>
-          <li><code>/blog/</code> — the writing index</li>
-          <li><code>/blog/&lt;slug&gt;/</code> — one directory per post</li>
-          <li><code>/principles/</code> — the living constitution</li>
+          <li><code>/blog/</code> — the list of writing</li>
+          <li><code>/blog/&lt;name-of-post&gt;/</code> — one folder per post</li>
+          <li><code>/principles/</code> — my living list of principles</li>
         </ul>
 
         <p>
-          The <code>/blog/&lt;slug&gt;/</code> pattern uses a directory with an
-          <code>index.html</code> inside, not a flat <code>slug.html</code> file. This
-          means the URL has no file extension. It resolves correctly on Apache, Nginx,
-          GitHub Pages, Cloudflare Pages, and any future host you can imagine — because
-          all of them understand directory indexing, and none of that logic can change
-          without breaking the entire web.
+          Each post lives in its own folder with a file called <code>index.html</code> inside,
+          rather than as a single <code>post.html</code> file. The payoff is a clean address
+          with no file extension — <code>/blog/this-post/</code> — that every web host on earth
+          understands the same way, so moving hosts never changes a single link.
         </p>
 
-        <h2>One stylesheet, one prefix</h2>
+        <h2>The invisible files that do the real work</h2>
 
         <p>
-          Every page references <code>/style.css</code>. Not <code>../style.css</code>.
-          The absolute root path. This matters because relative paths are a function of
-          directory depth, which changes if you ever reorganize. An absolute path is a
-          function of the server root, which doesn't.
+          Most people who build a blog stop once the page looks right. But the difference
+          between a private file and a publication people can find, share, and follow is a
+          handful of files you never actually see on the page. Here's each one, in plain terms.
         </p>
 
         <p>
-          The same applies to every asset under <code>/assets/</code>. When this site
-          is served from <code>mohaktripathi.com</code>, <code>/style.css</code> resolves
-          to <code>mohaktripathi.com/style.css</code> regardless of which directory the
-          requesting page lives in.
-        </p>
-
-        <h2>What "durable" actually means</h2>
-
-        <p>
-          The web has been around for 35 years. In that time, plain HTML and CSS files
-          have never become unreadable. The <code>&lt;p&gt;</code> tag from 1993 still
-          works today. The CSS I write in 2026 will still render in 2091, because browsers
-          take backwards compatibility more seriously than almost any other piece of software
-          on earth.
+          <strong>An RSS feed</strong> (<code>feed.xml</code>) is a machine-readable list of your
+          posts. Reader apps check it and show subscribers your new posts automatically — no
+          algorithm deciding who sees what, no platform in between. It's the purest form of an
+          audience you don't have to rent.
         </p>
 
         <p>
-          JavaScript-heavy sites have a median lifespan of around two to four years before
-          something in the dependency chain becomes unmaintained, a service is discontinued,
-          or the framework's philosophy shifts enough that upgrading is effectively a rewrite.
+          <strong>A sitemap</strong> (<code>sitemap.xml</code>) is a plain list of every page on
+          your site, written for search engines. Crawlers can miss pages on their own; the
+          sitemap simply says "here is everything that exists," which helps a brand-new site
+          get found faster.
         </p>
 
         <p>
-          I don't want to lose words to infrastructure. The whole point of writing is that
-          ideas outlive the moment. If the medium is fragile, the ideas are fragile too.
-        </p>
-
-        <h2>What publishing looks like in practice</h2>
-
-        <p>
-          This blog is a directory of HTML files, a stylesheet, and a handful of assets.
-          No package.json. No build command. No CI pipeline to maintain. To publish a new
-          post, I:
-        </p>
-
-        <ol>
-          <li>Create a new directory under <code>/blog/</code></li>
-          <li>Drop an <code>index.html</code> in it</li>
-          <li>Add a <code>&lt;li&gt;</code> to <code>/blog/index.html</code></li>
-          <li>Add an <code>&lt;item&gt;</code> to <code>feed.xml</code></li>
-          <li>Commit and push</li>
-        </ol>
-
-        <p>
-          It deploys in under 30 seconds on GitHub Pages with no build step — because there
-          is nothing to build. The template for any new post is a single HTML file with the
-          same header and footer. You can download it and use it yourself:
+          <strong>A robots file</strong> (<code>robots.txt</code>) tells crawlers they're welcome
+          and points them at the sitemap. <strong>Open Graph tags</strong> are a few hidden lines
+          in the page's head that decide how your link looks when someone pastes it into
+          LinkedIn, WhatsApp, or a chat — with them, the link unfurls into a tidy card with a
+          title and image; without them, it's a bare, ugly URL. A <strong>canonical tag</strong>
+          tells Google which version of an address is the official one, so the <code>www</code>
+          and non-<code>www</code> versions don't compete with each other and split your ranking.
+          And a <strong>404 page</strong> is just a friendly page for when someone hits a broken
+          link, instead of a blank error.
         </p>
 
         <p>
-          <a class="file-link" href="/assets/post-template.html" download>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            post-template.html
-          </a>
+          None of these are visible. All of them are what turn a folder of files into something
+          discoverable, shareable, and followable.
         </p>
 
-        <h2>The aesthetic argument</h2>
+        <h2>Putting it online</h2>
 
         <p>
-          I want to make one more point, because the purely technical case makes it sound
-          like this approach involves sacrifice. It doesn't.
-        </p>
-
-        <p>
-          A page with system fonts, a 680px reading column, generous whitespace, clear
-          heading hierarchy, and one accent color is a better reading experience than
-          almost anything I've seen built with a component library. The best-read personal
-          sites on the internet — Daring Fireball, Paul Graham's essays, Derek Sivers —
-          are essentially this. They look timeless because they have no framework's
-          fingerprints on them.
+          The content lives in <strong>Git</strong> — a system that tracks every version of every
+          file — and I push it to <em>two</em> separate places, so no single company losing my
+          account can lose my writing. From there, a free host called GitHub Pages turns the
+          files in my repository directly into the live website. There's no server to run; the
+          files <em>are</em> the site.
         </p>
 
         <p>
-          The visual design of this site is also the argument the site is making. Clarity
-          over performance isn't just a principle I'm writing about — it's the choice that
-          makes the stylesheet 400 lines instead of 40,000. The medium is the message,
-          and this medium is plain.
-        </p>
-
-        <h2>A brief note on this site's own build</h2>
-
-        <p>
-          If you're curious what this looks like in practice: I gave a short talk last year
-          on why I structure personal projects this way. Skip to the 4-minute mark for the
-          live demo of the "no framework" approach.
-        </p>
-
-        <div class="video-wrapper">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/placeholder"
-            title="Why plain HTML still wins — a live demo"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-        </div>
-
-        <p>
-          I also recorded a short audio version of this post for anyone who prefers to
-          listen while commuting. It's about twelve minutes at normal speed.
-        </p>
-
-        <audio controls preload="none">
-          <source src="/assets/building-a-blog-that-lasts-100-years.mp3" type="audio/mpeg">
-          <p>Your browser doesn't support the audio element. <a href="/assets/building-a-blog-that-lasts-100-years.mp3">Download the audio</a> instead.</p>
-        </audio>
-
-        <h2>One hundred years</h2>
-
-        <p>
-          A blog that lasts a hundred years is just a blog with no external dependencies
-          and frozen URLs, served from a host that exists. That's it. None of the tech is
-          exotic. The hard part is the restraint: resisting the framework, resisting the
-          feature, resisting the clever build step that solves a problem you don't have.
+          The last connection is <strong>DNS</strong> — the internet's address book. It's what
+          points <code>mohaktripathi.com</code> at wherever my files actually live. Set it once,
+          and if I ever move hosts, I change this one pointer and every link keeps working.
         </p>
 
         <p>
-          I wrote this down because I want to be able to find it in 2126. And I think I will.
+          This is where I made my first real mistakes, so let me hand them to you directly:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Two different things are both called "CNAME."</strong> One is a small file
+            named <code>CNAME</code> inside your repository that holds your domain; the other is
+            a type of DNS record at your registrar. I conflated them and chased the wrong one
+            for a while. They're separate jobs — you may need both.
+          </li>
+          <li>
+            <strong>The first preview looked completely broken, and I panicked.</strong> Before
+            the domain was attached, my site loaded with no styling at all and I was sure I'd
+            wrecked something. I hadn't — the absolute paths just don't resolve correctly on the
+            temporary host address, and attaching the real domain fixed it instantly. If your
+            first preview looks unstyled, don't touch anything; finish connecting the domain.
+          </li>
+          <li>
+            <strong>"DNS check unsuccessful" is usually not a thing you fix.</strong> It's a thing
+            you wait out. DNS changes take time to spread across the internet — minutes, sometimes
+            hours. I almost redid correct work because I read a propagation delay as an error. Make
+            the change once, then be patient and re-check.
+          </li>
+        </ul>
+
+        <h2>Telling Google you exist</h2>
+
+        <p>
+          Once the site was live, I added it to Google Search Console. Two things happen there.
+          First you prove you own the domain — Google gives you a code, you add it as a DNS
+          record, it checks for it. Then you submit your sitemap, and Google starts crawling
+          your pages faster than it would on its own.
+        </p>
+
+        <p>
+          One clarification, because I had it slightly wrong: submitting the sitemap is a
+          <em>one-time</em> action. You don't resubmit it for every new post. What you do per post
+          is keep the <code>sitemap.xml</code> <em>file</em> updated with the new address; Google
+          re-reads the same file on its own schedule and picks up whatever you've added.
+        </p>
+
+        <h2>The audience layer: a newsletter you own</h2>
+
+        <p>
+          Followers on a platform are rented — the platform decides who sees you and can change
+          the rules any day. Email subscribers are owned, as long as the tool lets you export
+          the list. That export is the whole test: if you can download your subscribers and
+          carry them to another tool, the tool is just a swappable utility, like the host. I
+          picked one that passes that test and wired its signup form into my pages.
+        </p>
+
+        <p>
+          More honesty, because this part had two confusing moments. During setup the form
+          quietly had "Substack" pre-selected as my previous platform, which I'd never used — a
+          reminder to actually read the defaults. And when I tested my own signup, the
+          confirmation page said "Not found," which looked like a bug in my site. It wasn't: the
+          subscriber had been captured correctly, the page I landed on was just a stale link
+          mid-flow, and the account was still under the provider's review. Good email tools
+          manually review new senders before letting them send, to protect everyone's
+          deliverability — so a fresh account being "under review" for a day or two is a feature,
+          not a fault. The form worked; I just had to wait.
+        </p>
+
+        <h2>The mistakes that ate the most time</h2>
+
+        <p>
+          If I'm honest, very little of my two days was "building." Most of it was small,
+          undramatic friction that no documentation page warns you about. These three cost me
+          the most, and they're the real reason I'm writing this down:
+        </p>
+
+        <p>
+          <strong>The feed wouldn't validate because of a day of the week.</strong> An RSS feed
+          stamps each post with a date, and the date includes the weekday name. Mine said "Sat"
+          when June 21 was actually a Sunday. RSS is strict: that one mismatched word made a
+          validator reject the entire feed. It was a typo, not a real problem — but the machine
+          doesn't care.
+        </p>
+
+        <!-- <p>
+          <strong>I ran the wrong validator.</strong> To check my feed, I pasted it into an HTML
+          checker and got a frightening error about a missing schema. The HTML checker simply
+          doesn't understand feed files — there's a separate feed validator for that. Half of
+          debugging is making sure you're even using the right tool to look at the thing.
+        </p> -->
+
+   <p>
+          <strong>I ran the wrong validator.</strong> To check my feed, I pasted it into an
+          <a href="https://validator.w3.org/nu/" target="_blank" rel="noopener">HTML checker</a>
+          and got a frightening error about a missing schema. An HTML checker doesn't understand
+          feed files — there's a
+          <a href="https://validator.w3.org/feed/" target="_blank" rel="noopener">separate feed validator</a>
+          for that. Half of debugging is making sure you're even using the right tool to look at the thing.
+        </p>
+
+        <p>
+          <strong>Caching fooled me into thinking my fix didn't work.</strong> After I corrected
+          the feed, the validator kept showing the old, broken version. It had remembered
+          (cached) the earlier copy to save time. Adding a meaningless <code>?v=2</code> to the
+          end of the address forced it to fetch a fresh copy, and the fix appeared. If a tool
+          insists your change isn't there after you're sure it is, suspect a cache.
+        </p>
+
+        <h2>What I deliberately did not do</h2>
+
+        <p>
+          Restraint was the hardest part, so it's worth listing what I cut and why. No
+          framework — it rots. No content management system — for a single writer, a text editor
+          and Git already do the job. No Substack or Medium as my <em>home</em> — those are rented
+          land that can outrank me for my own words; fine to repost to, never to live on. No
+          comments — they'd need a database; I'll point people to discuss elsewhere instead. No
+          fancy file storage for images — they just live in the repository. No trendy domain
+          ending. The pattern under every one of these: anything that needs a server, a database,
+          a build step, or a platform's continued goodwill got cut. What's left can't rot.
+        </p>
+
+        <h2>What it cost, and what it bought</h2>
+
+        <p>
+          The cost was real: two days, the convenience of a framework, and a flashier look I
+          could have had off the shelf. What I bought is a site with nothing to maintain, nothing
+          to patch, and nothing that can break on its own; that I fully own; that I can move to a
+          new host in an afternoon without anyone noticing; and that I'll be able to publish to in
+          a century with the same five steps I use today. For me that trade is not close.
+        </p>
+
+        <h2>If you're building your own</h2>
+
+        <p>
+          Here's the shortest honest path, now that you understand why each step is here: buy a
+          domain with your name on it and turn on auto-renew; write plain HTML and one CSS file;
+          freeze your URL structure before you write a word; add the invisible files — feed,
+          sitemap, robots, Open Graph tags, a 404; put it in Git and push it to a free static
+          host; point your domain at that host; wire in one newsletter form you can export from.
+          That's it. None of it is exotic. The hard part is the restraint.
+        </p>
+
+        <p>
+          I didn't do all this to have a blog. I did it so the writing would outlive the tools.
+          A medium is fragile or it isn't, and I chose the one that isn't. This is the first post.
+          If you're reading it years from now and it still loads exactly as it does today — that
+          was the entire point.
         </p>
 
         <a class="backlink" href="/blog/">← All writing</a>
-
-        <aside class="sponsor" aria-label="Sponsor">
-          <span class="label">Sponsored</span>
-          <span class="logo" role="img" aria-label="Sponsor logo placeholder"></span>
-          <span class="blurb">Interested in sponsoring? <a href="mailto:hello@mohaktripathi.com">Get in touch →</a></span>
-        </aside>
 
         <section class="subscribe" aria-labelledby="sub-post">
           <h3 id="sub-post">Get the next one by email</h3>
