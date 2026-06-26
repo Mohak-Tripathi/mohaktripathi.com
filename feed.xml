@@ -6,8 +6,21 @@
     <description>Field notes from building and operating a multi-tenant product solo. Backend engineering, databases, and building in public.</description>
     <language>en</language>
     <copyright>© 2026 Mohak Tripathi</copyright>
-    <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 26 Jun 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://mohaktripathi.com/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>The map I drew when I got lost learning AI</title>
+      <link>https://mohaktripathi.com/blog/the-map-i-drew-learning-ai/</link>
+      <guid isPermaLink="true">https://mohaktripathi.com/blog/the-map-i-drew-learning-ai/</guid>
+      <pubDate>Fri, 26 Jun 2026 00:00:00 +0000</pubDate>
+      <description>I was collecting AI tools without a plan. So I drew a map of where any of it was going, and made a bet: the building blocks commoditize, and the value moves to production scars and domain depth.</description>
+      <content:encoded><![CDATA[
+        <p>For a few weeks I'd been learning AI tooling the way you eat at a buffet with no plan. Claude Code. Cowork. Skills. Hooks. Subagents. LangChain, then LangGraph. Each one made sense on its own. Together they made a pile, not a picture. I could tell you what a subagent was. I couldn't tell you why I was learning it, or where it led.</p>
+        <p>I'm a systems thinker — I get twitchy using the parts before I understand the whole. So I stopped collecting tools and drew a map: where is all of this actually going, and where am I standing on it?</p>
+        <p><a href="https://mohaktripathi.com/blog/the-map-i-drew-learning-ai/">Read the full post →</a></p>
+      ]]></content:encoded>
+    </item>
 
     <item>
       <title>Building a blog that lasts 100 years</title>
