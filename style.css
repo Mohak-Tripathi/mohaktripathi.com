@@ -30,23 +30,27 @@
   --accent-bg: #eef2f9;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg:        #16161a;
-    --bg-soft:   #1e1f24;
-    --text:      #e6e5de;
-    --muted:     #9a988e;
-    --faint:     #6f6e67;
-    --border:    #2a2b31;
-    --rule:      #232429;
-    --accent:    #7ea8ef;
-    --accent-bg: #1b2330;
-  }
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+[data-theme="dark"] {
+  --bg:        #16161a;
+  --bg-soft:   #1e1f24;
+  --text:      #e6e5de;
+  --muted:     #9a988e;
+  --faint:     #6f6e67;
+  --border:    #2a2b31;
+  --rule:      #232429;
+  --accent:    #7ea8ef;
+  --accent-bg: #1b2330;
+  color-scheme: dark;
 }
 
 /* Reset ---------------------------------------------------------------------*/
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 body {
   margin: 0;
@@ -101,6 +105,16 @@ main { padding-bottom: 1rem; }
 .site-nav a:hover { color: var(--text); }
 .site-nav a[aria-current="page"] { color: var(--text); font-weight: 600; }
 .site-nav .rss-icon { width: 0.82em; height: 0.82em; fill: currentColor; }
+
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  margin: 0; padding: 0; border: 0; background: none;
+  color: var(--muted); cursor: pointer; line-height: 1;
+}
+.theme-toggle:hover { color: var(--text); }
+.theme-icon { width: 1.05em; height: 1.05em; fill: none; stroke: currentColor; stroke-width: 1.75; }
+html:not([data-theme="dark"]) .theme-icon-sun { display: none; }
+html[data-theme="dark"] .theme-icon-moon { display: none; }
 
 /* Footer --------------------------------------------------------------------*/
 .site-footer {
@@ -361,7 +375,7 @@ audio {
 /* Print ---------------------------------------------------------------------*/
 @media print {
   :root { --bg: #fff; --bg-soft: #fff; --text: #000; --muted: #333; --accent: #000; --border: #ccc; }
-  .site-nav, .site-footer, .subscribe, .sponsor, .skip-link { display: none; }
+  .site-nav, .site-footer, .subscribe, .sponsor, .skip-link, .theme-toggle { display: none; }
   a { text-decoration: none; color: #000; }
   pre, figure img, .img-placeholder { border-color: #ccc; }
 }
