@@ -1130,3 +1130,306 @@ Nothing else. RSS, robots.txt, sitemap, Search Console, domain, DNS, HTTPS, the 
 ## So: yes, move to content
 
 Everything you listed — formatting the raw material into the actual post, refining the principles doc, testing OG images — is the right next layer, and it's *content/polish*, not infrastructure. The system is finished doing its job: disappearing into the background so writing is the only thing left. You're exactly where you should be to start shaping post #1 (or its rewrite) from everything you've collected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------
+
+
+
+
+
+
+
+
+Here is a clean split you can hand to a designer. The main thing to internalize first:
+
+**LinkedIn, X (Twitter), WhatsApp, Slack, Discord, and Telegram all use one image per URL** — the share/preview image. You do **not** need separate LinkedIn vs Twitter files. One raster JPG/PNG per page (or per post) covers every platform.
+
+---
+
+# Part 1 — One-time images (create once, reuse forever)
+
+These are **site brand assets**. After setup, new posts do not change them (except you’ll add new per-post files in Part 2).
+
+---
+
+## 1. Favicon (site icon)
+
+| Spec | Value |
+|------|-------|
+| **Filename** | `/assets/favicon.png` (also export `/assets/favicon.ico` if easy) |
+| **Size** | **512×512 px** master; export **48×48** and **32×32** (Google minimum is 48×48) |
+| **Format** | **PNG** (primary); ICO optional for older browsers |
+| **Aspect ratio** | 1:1 square |
+| **Safe zone** | Keep logo/mark inside center ~80% — edges get cropped in some UIs |
+
+**Purpose:** Tiny icon in the browser tab, bookmarks, and **the small logo Google shows next to your site in search results** (this is why you see the plain “M” today).
+
+**Where it goes in code:** `<link rel="icon">` on every HTML page (`index.html`, all blog pages, `principles/`, `404.html`).
+
+**Designer brief:**  
+A real mark or monogram for “Mohak Tripathi” — not a generic letter on a blue square. Should read clearly at 16×16–48×48. Match site palette: background `#fcfcfa`, accent `#245aa6`, text `#1a1a16`. Minimal, durable, no fine detail that disappears when tiny.
+
+---
+
+## 2. Apple Touch Icon (optional but recommended one-time)
+
+| Spec | Value |
+|------|-------|
+| **Filename** | `/assets/apple-touch-icon.png` |
+| **Size** | **180×180 px** |
+| **Format** | PNG |
+| **Aspect ratio** | 1:1 |
+
+**Purpose:** Icon when someone saves your site to an iPhone/iPad home screen.
+
+**Where it goes:** `<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">` on all pages.
+
+**Designer brief:** Same brand mark as favicon, but can be slightly more detailed since it displays larger. No transparency required (iOS adds rounded corners).
+
+---
+
+## 3. Default share image (site-wide OG image)
+
+| Spec | Value |
+|------|-------|
+| **Filename** | `/assets/og-image.jpg` |
+| **Size** | **1200×630 px** (this is the universal social preview size) |
+| **Format** | **JPG** (or PNG; JPG preferred for smaller file size) |
+| **Aspect ratio** | **1.91:1** (~1200×630) |
+| **Max file size** | Under **5 MB** (aim for **&lt;300 KB**) |
+| **Safe zone** | Keep text/logo away from edges — some platforms crop slightly |
+
+**Purpose:** Preview card when someone shares **non-article pages**:
+- Home (`mohaktripathi.com`)
+- Blog index (`/blog/`)
+- Principles (`/principles/`)
+
+Also acts as **fallback** if a post ever ships without its own share image.
+
+**Where it goes:**  
+```html
+<meta property="og:image" content="https://mohaktripathi.com/assets/og-image.jpg">
+<meta name="twitter:image" content="https://mohaktripathi.com/assets/og-image.jpg">
+```
+on `index.html`, `blog/index.html`, `principles/index.html`.
+
+**Designer brief:**  
+Brand card, not a blog post card. Content ideas:
+- **Mohak Tripathi** (name, large)
+- Tagline: *Backend engineer · solo founder · writing about systems, databases, and building in public*
+- `mohaktripathi.com`
+- Visual style: clean, editorial, light background `#fcfcfa`, blue accent bar or line `#245aa6`, subtle grid texture OK (your current SVG has this vibe).  
+**No post title** — this is the “who is this site” image.
+
+**Important:** Must be **raster (JPG/PNG), not SVG**. SVG is why LinkedIn currently says “No image found.”
+
+---
+
+## 4. RSS feed logo (one-time)
+
+| Spec | Value |
+|------|-------|
+| **Filename** | Can reuse favicon PNG, or `/assets/rss-logo.png` |
+| **Size** | **144×144 px** minimum (RSS spec); **512×512** export is fine |
+| **Format** | **PNG or JPG only** (no SVG) |
+| **Aspect ratio** | 1:1 |
+
+**Purpose:** Logo shown in RSS readers (Feedly, Inoreader, Readwise) next to your feed name “Mohak Tripathi.”
+
+**Where it goes:** Inside `feed.xml` in a channel-level `<image>` block (you’ll wire this once you have the raster file).
+
+**Designer brief:** Same mark as favicon, square, readable at small size in feed reader sidebars.
+
+---
+
+## One-time summary table (give this to designer)
+
+| # | Asset | File | Size | Format | Purpose | Seen when |
+|---|-------|------|------|--------|---------|-----------|
+| 1 | Favicon | `favicon.png` (+ 48px) | 512×512 master | PNG | Browser tab + **Google search icon** | Every visit, Google SERP |
+| 2 | Apple icon | `apple-touch-icon.png` | 180×180 | PNG | iOS home screen bookmark | Save to home screen |
+| 3 | Default share card | `og-image.jpg` | **1200×630** | JPG | Social preview for **site pages** (not posts) | Share home, /blog/, /principles/ |
+| 4 | RSS logo | `rss-logo.png` or reuse favicon | 144×144+ | PNG/JPG | Feed reader branding | Subscribe in Feedly etc. |
+
+**After one-time setup:** Wire these paths in HTML + `feed.xml` once. Future posts don’t touch these files.
+
+---
+
+# Part 2 — Per-post images (create every time you publish)
+
+---
+
+## A. Share image (required for every post)
+
+This is the **one image that powers LinkedIn, X, WhatsApp, Slack, Discord, Telegram** for that post’s URL.
+
+| Spec | Value |
+|------|-------|
+| **Filename** | `/assets/posts/<slug>-og.jpg`  
+  Example: `/assets/posts/the-map-i-drew-learning-ai-og.jpg` |
+| **Size** | **1200×630 px** |
+| **Format** | **JPG** (PNG if text-heavy / sharp edges) |
+| **Aspect ratio** | 1.91:1 |
+| **Max file size** | Under 5 MB (aim &lt;500 KB) |
+
+**Purpose:** When you paste `mohaktripathi.com/blog/your-post/` anywhere, people see a **large preview card** with image + title + description. This is your main distribution asset.
+
+**Where it goes:** Only in **that post’s** `index.html`:
+```html
+<meta property="og:image" content="https://mohaktripathi.com/assets/posts/<slug>-og.jpg">
+<meta name="twitter:image" content="https://mohaktripathi.com/assets/posts/<slug>-og.jpg">
+```
+
+**Designer brief (per post):**  
+Use a **fixed template** so every post looks like the same family:
+- Post **title** (large, 1–2 lines max)
+- Optional subtitle or hook (shorter than OG description)
+- Your name or `mohaktripathi.com` (small)
+- Optional small visual tied to the post (for post #2: layers/map diagram motif)
+- Same colors/fonts as site default OG — readers should recognize your brand instantly
+
+**You do NOT need:**
+- Separate LinkedIn image
+- Separate Twitter image  
+Same file, two meta tags pointing to it.
+
+---
+
+## B. Hero image (optional — only when the post benefits)
+
+| Spec | Value |
+|------|-------|
+| **Filename** | `/assets/posts/<slug>-hero.jpg` (or `.png` for diagrams) |
+| **Size** | **Width 1200–1600 px**; height flexible |
+| **Format** | JPG for photos; **PNG** for diagrams/screenshots with text |
+| **Aspect ratio** | Often **16:9** works well in your CSS; not fixed |
+
+**Purpose:** Visual at the top of the **article on your website** — for readers who land on the page, not for social crawlers (unless you also set it as OG, which you shouldn’t for non-1200×630 images).
+
+**Where it goes:** Inside the article body in `index.html`:
+```html
+<figure>
+  <img src="/assets/posts/the-map-i-drew-learning-ai-hero.png" alt="Four-layer map of the AI tooling landscape">
+  <figcaption>Optional caption</figcaption>
+</figure>
+```
+Typically right after the post title/meta, before the first paragraph.
+
+**Designer brief (per post, if applicable):**  
+Post #2 is a strong candidate — an actual **map/layers diagram** of your four-layer model. Post #1 might have had an architecture diagram. Skip hero if the post is pure prose with no visual idea.
+
+**This does not replace the share image.** Hero = on-page reading. Share image = 1200×630 link preview.
+
+---
+
+## C. Inline images (optional — only when content needs them)
+
+| Spec | Value |
+|------|-------|
+| **Filename** | `/assets/posts/<slug>-<description>.png` |
+| **Size** | Max width **1200–1600 px** (your CSS scales down) |
+| **Format** | PNG for UI/diagrams; JPG for photos |
+
+**Purpose:** Screenshots, charts, extra diagrams mid-article.
+
+**Where it goes:** `<figure>` / `<img>` in the post HTML wherever needed.
+
+**Designer brief:** One-off per diagram; no fixed template beyond matching site style.
+
+---
+
+## Per-post summary table
+
+| # | Asset | Required? | Size | Format | Purpose | Changes each post? |
+|---|-------|-----------|------|--------|---------|-------------------|
+| A | Share / OG image | **Yes** | 1200×630 | JPG | LinkedIn, X, WhatsApp, etc. | **Yes — new title/visual** |
+| B | Hero image | Optional | ~1200–1600 wide | JPG/PNG | Top of article on your site | **Yes, if post has a visual** |
+| C | Inline images | Optional | Flexible | JPG/PNG | Diagrams/screenshots in body | **As needed** |
+
+---
+
+# Part 3 — What does NOT need its own image
+
+| Thing | Why |
+|-------|-----|
+| `sitemap.xml` | URLs only |
+| `blog/index.html` listing | Text links |
+| `feed.xml` per-item | Text; optional inline img in CDATA only if you embed hero in RSS HTML |
+| Google Search large image | Not guaranteed; favicon is what you control today |
+| Newsletter (Buttondown) | Separate email design unless you paste the share image URL in the email |
+
+---
+
+# Part 4 — Recommended folder structure
+
+```text
+assets/
+  favicon.png                 # one-time
+  favicon-48.png              # one-time (optional export)
+  apple-touch-icon.png        # one-time
+  og-image.jpg                # one-time (site default share card)
+  rss-logo.png                # one-time (or reuse favicon)
+  posts/
+    the-map-i-drew-learning-ai-og.jpg      # per-post share
+    the-map-i-drew-learning-ai-hero.png    # per-post hero (optional)
+    building-a-blog-that-lasts-100-years-og.jpg
+    ...
+```
+
+---
+
+# Part 5 — Copy-paste designer brief (one-time package)
+
+> **Project:** mohaktripathi.com — durable personal blog / field notes  
+> **Aesthetic:** Minimal, editorial, light background `#fcfcfa`, accent `#245aa6`, dark text `#1a1a16`, muted `#6b6a60`. System sans for headings, serif for taglines. No stock photos, no gradients-heavy “tech startup” look.  
+>  
+> **Deliverables (one-time):**  
+> 1. **Favicon** — 512×512 PNG (+ 48×48). Square brand mark for browser tabs and Google search results. Must read at tiny sizes.  
+> 2. **Apple touch icon** — 180×180 PNG. Same mark, slightly more detail.  
+> 3. **Default share card** — 1200×630 JPG. Site branding: name, tagline, URL. Used when sharing home page and non-post pages. **Not SVG.**  
+> 4. **RSS logo** — 144×144+ PNG, square, same mark as favicon.  
+>  
+> **Deliverables (per post — template + instances):**  
+> 5. **Post share card template** — 1200×630 JPG master. Slots: post title, optional hook, small branding. One finished card per published post.  
+> 6. **Hero / diagram** (optional per post) — wide image for top of article; PNG for diagrams.
+
+---
+
+# Part 6 — Your immediate to-do for post #2
+
+| Priority | Create | For |
+|----------|--------|-----|
+| 1 | One-time `og-image.jpg` + `favicon.png` | Fixes LinkedIn globally + Google “M” over time |
+| 2 | `the-map-i-drew-learning-ai-og.jpg` (1200×630) | LinkedIn/X preview for this specific post |
+| 3 | `the-map-i-drew-learning-ai-hero.png` (optional) | Map/layers diagram at top of article |
+
+After the designer delivers one-time assets, you wire them once. For every future post, you only add **one required share image** (1200×630) plus optional hero/inline images — the site infrastructure never blocks you again.
+
+If you want, switch to Agent mode after you have the files and I can update all the HTML meta tags and `feed.xml` paths in one pass.

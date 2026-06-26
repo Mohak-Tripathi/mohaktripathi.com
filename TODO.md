@@ -54,6 +54,138 @@ Nothing here is urgent; nothing here is forgotten.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+## Per-post checklist (run every time you publish)
+
+Copy this block for each new post. See `doc/BLOG_OPERATING_SYSTEM.md` for full context.
+
+### Images (create before or while writing)
+
+One file powers LinkedIn, X, WhatsApp, Slack, Discord, and Telegram — no separate
+images per platform.
+
+- [ ] **Share image (required)** — `/assets/posts/<slug>-og.jpg`
+      - Size: **1200×630 px** · Format: **JPG** (or PNG) · Aspect: 1.91:1
+      - Purpose: link preview when the post URL is pasted anywhere
+      - Content: post title (+ optional hook), consistent with site brand template
+- [ ] **Hero image (optional)** — `/assets/posts/<slug>-hero.jpg` or `.png`
+      - Width: **1200–1600 px** · Format: JPG for photos, PNG for diagrams
+      - Purpose: visual at top of article on the site (does not replace share image)
+- [ ] **Inline images (optional)** — `/assets/posts/<slug>-<description>.png`
+      - Purpose: diagrams, screenshots, charts mid-article as needed
+
+> One-time site images (favicon, default `og-image.jpg`, RSS logo) live under `/assets/`
+> and do not change per post. See Infra section above.
+
+### Content
+
+- [ ] Title is final
+- [ ] Summary / meta description written
+- [ ] Slug is clean and frozen (`/blog/<slug>/` — never change after publish)
+- [ ] Read time added
+- [ ] Links checked
+
+### Post file
+
+- [ ] Create `/blog/<slug>/index.html`
+- [ ] `<title>` and meta description
+- [ ] OG tags (`og:type` article, title, description, url, image, published_time, author)
+- [ ] Twitter tags (`summary_large_image`, title, description, image)
+- [ ] Canonical URL
+- [ ] `og:image` and `twitter:image` point to **this post's** `/assets/posts/<slug>-og.jpg`
+      (not the site-wide default, not SVG)
+- [ ] Visible date in `<time datetime="YYYY-MM-DD">` matches real publish date
+- [ ] Hero / inline `<figure>` tags wired if applicable
+
+### Site updates
+
+- [ ] Add entry to `/blog/index.html` (newest first)
+- [ ] Add `<item>` to `/feed.xml` (newest first)
+      - `pubDate` weekday must be correct (e.g. Fri for 2026-06-26 — verify with
+        `date -d "YYYY-MM-DD" +%a`)
+      - Update `<lastBuildDate>` to match newest post
+- [ ] Add `<url>` to `/sitemap.xml` with `<lastmod>`
+- [ ] Add to home page "Recent writing" on `/index.html` (newest first)
+
+### Validation
+
+- [ ] Open page locally
+- [ ] Mobile check
+- [ ] Dark mode check
+- [ ] OG preview check (LinkedIn Post Inspector — confirm image shows, not "No image found")
+- [ ] Feed valid (https://validator.w3.org/feed/)
+- [ ] Sitemap valid
+- [ ] No broken links
+
+### Deploy
+
+- [ ] `git add .`
+- [ ] `git commit -m "Publish: <post-title>"`
+- [ ] `git push`
+- [ ] Confirm live on mohaktripathi.com
+
+### Distribution (after publish)
+
+- [ ] LinkedIn post (native, link in comments or post body)
+- [ ] X post
+- [ ] Newsletter send (when ready — after 3–5 posts per plan above)
+- [ ] RSS subscribers pick it up automatically from `feed.xml`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- 
 
 
