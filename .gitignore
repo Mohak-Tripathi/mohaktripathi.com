@@ -3,8 +3,9 @@ Thumbs.db
 *.swp
 *.swo
 
-# Planning docs (not part of the site)
+# Planning docs / Claude Code config (not part of the site)
 Instructions.md
+CLAUDE.md
 docs/
 
 # Design source (not part of the deployed site)
